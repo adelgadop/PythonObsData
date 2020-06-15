@@ -19,9 +19,9 @@ Parameters downloaded are:
 
 ### Encoding
 In the terminal write (apply also in Unix in Mac Os):
-´´´bash
+```bash
 $ echo $LC_CTYPE="pt_BR.utf8"
-´´´
+```
 With this encoding configuration, you won't have issues with file names created (e.g. Carapicu**í**ba.pdf).
 
 ### Run the script
