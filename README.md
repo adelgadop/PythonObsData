@@ -17,7 +17,14 @@ Parameters downloaded are:
   * nitrogen dioxide (no2)
   * carbon monoxide (co)
 
+### Encoding
+In the terminal write (apply also in Unix in Mac Os):
+´´´bash
+$ echo $LC_CTYPE="pt_BR.utf8"
+´´´
+With this encoding configuration, you won't have issues with file names created (e.g. Carapicu**í**ba.pdf).
 
+### Run the script
 Then, you have to select the date and period when `download_CETESB.py` run in the terminal. The follow is an example:
 
 ```bash
