@@ -118,7 +118,7 @@ password: xxxx
 47 2017-01-02 23:00:00  02/01/2017
 ['Downloading poll Americana Station']
 ```
-In `start station (number):` you will to write the station position number in order to starting the downloading. 
+In `start station (number):` you have to write the station position number in order to starting the downloading. 
 Sometimes, the internet connection fall and it's needed to reinit the dowloading, not since the beginning. 
 
 The `download_CETESB.py` requires libraries to download information for all network stations belong to CETESB, located at the Metropolitan Area of São Paulo (MASP):
