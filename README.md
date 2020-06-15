@@ -18,9 +18,14 @@ Parameters downloaded are:
   * carbon monoxide (co)
 
 ### Encoding
-In the terminal write (apply also in Unix in Mac Os):
+In the terminal (for Linux) write:
 ```bash
 $ echo $LC_CTYPE="pt_BR.utf8"
+```
+In `~/.bash_profile`, add:
+
+```bash
+export LC_CTYPE=pt_BR.UTF-8
 ```
 With this encoding configuration, you won't have issues with file names created (e.g. Carapicu**í**ba.pdf).
 

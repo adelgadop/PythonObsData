@@ -3,9 +3,8 @@ import numpy as np
 import pandas as pd
 import qualar_py as qr
 
-cetesb_stations = pd.read_csv(
-    '../3_Validation/cetesb_station_2017_codes_qualr.csv', 
-    encoding = "ISO-8859-1")
+cetesb_stations = pd.read_csv('./cetesb_station_2017_codes_qualr.csv',
+                              encoding = "ISO-8859-1")
 
 print(cetesb_stations)
 start = int(input('start station (number):'))
