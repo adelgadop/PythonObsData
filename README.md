@@ -114,8 +114,6 @@ The `download_CETESB.py` requires libraries to download information for all netw
 ```python
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-%matplotlib inline
 ```
 
 Also, we import a [`qualR.py`](https://github.com/quishqa/qualR.py/blob/master/qualR.py) package created by **quishqa** (Mario Gavidia). You will need to clone this package or download this script.
