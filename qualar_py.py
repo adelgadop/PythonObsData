@@ -83,12 +83,14 @@ def all_photo(cetesb_login, cetesb_password, start_date, end_date, station, csv_
     no = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 17, station)
     no2 = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 15, station)
     co = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 16, station)
+    code = str(station)
 
     all_photo_df = pd.DataFrame({
         'o3': o3.val,
         'no': no.val,
         'no2': no2.val,
-        'co': co.val
+        'co': co.val,
+        'code': str(station)
     }, index=o3.index)
 
     if csv_photo:
@@ -103,13 +105,15 @@ def all_met(cetesb_login, cetesb_password, start_date, end_date, station, csv_me
     ws = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 24, station)
     wd = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 23, station)
     sr = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 26, station)
+    code = str(station)
 
     all_met_df = pd.DataFrame({
         'tc': tc.val,
         'rh': rh.val,
         'sr': sr.val,
         'ws': ws.val,
-        'wd': wd.val
+        'wd': wd.val,
+        'code': str(station)
     }, index=tc.index)
 
     if csv_met:
