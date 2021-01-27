@@ -2,42 +2,54 @@
 import pandas as pd
 import os
 import numpy as np
+import glob
+import pickle as pkl
 
-stations = pd.read_csv('cetesb_station_2017_codes_qualr.csv',
-                      encoding = "ISO-8859-1")
+stations = pd.read_csv('stations.csv')
+#                      encoding = "ISO-8859-1")
 
 # Meteorological parameters
-f16 = [file for file in os.listdir('./data/met/Y2016/')]
-f17 = [file for file in os.listdir('./data/met/Y2017/')]
-f18 = [file for file in os.listdir('./data/met/Y2018/')]
+f14 = [file for file in sorted(glob.glob('./Y2014/*met*'))]
+f15 = [file for file in sorted(glob.glob('./Y2015/*met*'))]
+f16 = [file for file in sorted(glob.glob('./Y2016/*met*'))]
+f17 = [file for file in sorted(glob.glob('./Y2017/*met*'))]
+f18 = [file for file in sorted(glob.glob('./Y2018/*met*'))]
 
 # Function
-def readDat(files, path = './data/met/'):
+def readDat(files):
     Data = pd.DataFrame()
-    
+
     for file in files:
-        df = pd.read_csv(path + file)
+        df = pd.read_csv(file)
         Data = pd.concat([Data,df])
     return Data
 # End
 
-met16 = readDat(f16, path = './data/met/Y2016/')
-met17 = readDat(f17, path = './data/met/Y2017/')
-met18 = readDat(f18, path = './data/met/Y2018/')
+met14 = readDat(f14)
+met15 = readDat(f15)
+met16 = readDat(f16)
+met17 = readDat(f17)
+met18 = readDat(f18)
 
-metData = pd.concat([met16,met17,met18])
+metData = pd.concat([met14,met15,met16,met17,met18])
 metData['station'] = [stations[stations.code == i].name.values[0] for i in metData.code]
 
 # Air quality parameters
-f16 = [file for file in os.listdir('./data/photo/Y2016/')]
-f17 = [file for file in os.listdir('./data/photo/Y2017/')]
-f18 = [file for file in os.listdir('./data/photo/Y2018/')]
+f14 = [file for file in sorted(glob.glob('./Y2014/*photo*'))]
+f15 = [file for file in sorted(glob.glob('./Y2015/*photo*'))]
+f16 = [file for file in sorted(glob.glob('./Y2016/*photo*'))]
+f17 = [file for file in sorted(glob.glob('./Y2017/*photo*'))]
+f18 = [file for file in sorted(glob.glob('./Y2018/*photo*'))]
 
-aq16 = readDat(f16, path = './data/photo/Y2016/')
-aq17 = readDat(f17, path = './data/photo/Y2017/')
-aq18 = readDat(f18, path = './data/photo/Y2018/')
+aq14 = readDat(f14)
+aq15 = readDat(f15)
+aq16 = readDat(f16)
+aq17 = readDat(f17)
+aq18 = readDat(f18)
 
-aqData = pd.concat([aq16,aq17,aq18])
+aqData = pd.concat([aq14,aq15,aq16,aq17,aq18])
 aqData['station'] = [stations[stations.code == i].name.values[0] for i in aqData.code]
 data = pd.merge(metData, aqData)
-data.to_csv("airData.csv", index=False)
+data.loc[:,'local_date'] = pd.to_datetime(data['date'], format='%Y-%m-%d %H:%M:%S').dt.tz_localize("UTC")
+data.to_pickle('air_data.pkl')
+

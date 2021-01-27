@@ -83,6 +83,10 @@ def all_photo(cetesb_login, cetesb_password, start_date, end_date, station, csv_
     no = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 17, station)
     no2 = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 15, station)
     co = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 16, station)
+    ben = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 61, station)
+    tol= cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 62, station)
+    pm10 = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 12, station)
+    fine = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 57, station)
     code = str(station)
 
     all_photo_df = pd.DataFrame({
@@ -90,8 +94,14 @@ def all_photo(cetesb_login, cetesb_password, start_date, end_date, station, csv_
         'no': no.val,
         'no2': no2.val,
         'co': co.val,
+        'ben': ben.val,
+        'tol': tol.val,
+        'pm10': pm10.val,
+        'pm2.5':fine.val,
         'code': str(station)
     }, index=o3.index)
+
+    all_photo_df.index = all_photo_df.index.tz_localize('America/Sao_Paulo')
 
     if csv_photo:
         all_photo_df.to_csv('all_photo_' + str(station) + '.csv',
@@ -99,7 +109,7 @@ def all_photo(cetesb_login, cetesb_password, start_date, end_date, station, csv_
     else:
         return all_photo_df
 
-def all_met(cetesb_login, cetesb_password, start_date, end_date, station, csv_met=False):
+def all_met(cetesb_login, cetesb_password,  start_date, end_date, station, rm_flag = True, csv_met=False):
     tc = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 25, station)
     rh = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 28, station)
     ws = cetesb_data_download(cetesb_login, cetesb_password, start_date, end_date, 24, station)
@@ -116,6 +126,14 @@ def all_met(cetesb_login, cetesb_password, start_date, end_date, station, csv_me
         'code': str(station)
     }, index=tc.index)
 
+    all_met_df.index = all_met_df.index.tz_localize('America/Sao_Paulo')
+    
+    # Filtering 777 and 888 values
+    if rm_flag:
+        filter_flags = all_met_df['wd'] <= 360
+        all_met_df['wd'].where(filter_flags, inplace=True)
+
+    # Export to csv
     if csv_met:
         all_met_df.to_csv('all_met_' + str(station) + '.csv',
                             index_label='date')

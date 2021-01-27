@@ -16,6 +16,8 @@ Parameters downloaded are:
   * nitrogen monoxide (no)
   * nitrogen dioxide (no2)
   * carbon monoxide (co)
+  * particulate matter less than 10 micrometers (pm10)
+  * fine particles less than 2.5 micrometers (fine)
 
 ### Encoding
 In the terminal (for Linux) write:
