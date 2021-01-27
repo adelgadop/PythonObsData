@@ -15,7 +15,9 @@ Parameters downloaded are:
   * ozone (o3)
   * nitrogen monoxide (no)
   * nitrogen dioxide (no2)
-  * carbon monoxide (co)
+  * carbon monoxide (co) in ppm
+  * toluene (tol)
+  * benzene (ben)
   * particulate matter less than 10 micrometers (pm10)
   * fine particles less than 2.5 micrometers (fine)
 
