@@ -21,7 +21,7 @@ obs_dates = pd.DataFrame({'date': pd.date_range(fecha,
             periods=int(input('days:'))*24, freq='H')})
 obs_dates['date_qualar']=obs_dates['date'].dt.strftime('%d/%m/%Y')
 
-cetesb_login = 'adelgado@iag.usp.br' # input('login: ') 
+cetesb_login = input('login: ')  
 
 if len(sys.argv) < 2 and not 'RDAPSWD' in os.environ:
     try:
